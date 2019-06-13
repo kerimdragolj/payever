@@ -17,7 +17,6 @@ export class UsersListComponent implements OnInit {
   pageSize: number;
   pagesCount: number;
   currentPage: number;
-  isLoaded = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,7 +35,6 @@ export class UsersListComponent implements OnInit {
         this.pagesCount = paginationInfo.total;
         this.currentPage = paginationInfo.page - 1;
         this.pageSize = paginationInfo.per_page;
-        this.isLoaded = true;
       }).unsubscribe();
   }
 
