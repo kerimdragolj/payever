@@ -26,17 +26,12 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = this.activatedRoute.snapshot.queryParams.page - 1;
-    if (!this.currentPage) {
-      this.currentPage = 0;
-      this.fetchDataByPage(this.currentPage);
-    }
-
-    this.activatedRoute.data.pipe(map(data => data.users))
+    this.activatedRoute.data.pipe(map(res => res.users.data))
       .subscribe((users: UserInterface[]) => {
         this.userList = users;
       });
 
-    this.activatedRoute.data.pipe(map(data => data.paginationInfo))
+    this.activatedRoute.data.pipe(map(res => res.users))
       .subscribe((paginationInfo: PaginationInterface) => {
         this.pagesCount = paginationInfo.total;
         this.pageSize = paginationInfo.per_page;
@@ -52,17 +47,4 @@ export class UsersListComponent implements OnInit {
     this.router.navigate(['./users', user.id]);
   }
 
-  async fetchDataByPage(page) {
-    if (page !== 1) {
-      await this.router.navigate(['./'], { queryParams: { page } });
-    }
-  }
-
-  async fetchPagination() {
-    await this.activatedRoute.data.pipe(map(data => data.paginationInfo))
-      .subscribe((paginationInfo: PaginationInterface) => {
-        this.pagesCount = paginationInfo.total;
-        this.pageSize = paginationInfo.per_page;
-      }).unsubscribe();
-  }
 }

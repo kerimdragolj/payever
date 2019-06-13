@@ -5,14 +5,12 @@ import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 
 import { UsersResolver } from './resolvers/users.resolver';
-import { PaginationResolver } from '../core/resolvers/pagination.resolver';
 
 const routes: Routes = [
   {
     path: '',
     resolve: {
-      users: UsersResolver,
-      paginationInfo: PaginationResolver
+      users: UsersResolver
     },
     runGuardsAndResolvers: 'pathParamsOrQueryParamsChange',
     component: UsersListComponent
