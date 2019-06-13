@@ -20,7 +20,7 @@ export class ApiService {
   }
 
   fetchUserById(id: number): Observable<UserInterface> {
-    return this.http.get(`https://reqres.in/api/users/${id}`).pipe(map(response => response.json()));
+    return this.http.get(`https://reqres.in/api/users/${id}`).pipe(map(response => response.json().data));
   }
 
 }

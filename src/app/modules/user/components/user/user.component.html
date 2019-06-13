@@ -1,2 +1,10 @@
-<button (click)="back()">Back</button>
-<div>{{ user | json }}</div>
+<div class="card-wrapper">
+  <button (click)="back()" class="btn btn-secondary">Back</button>
+  <div class="card" *ngIf="user">
+    <img class="card-img-top" src="{{user.avatar}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{user.first_name + ' ' + user.last_name}}</h5>
+      <label class="card-text">{{user.email}}</label>
+    </div>
+  </div>
+</div>
