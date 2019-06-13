@@ -7,7 +7,6 @@ import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 
 import { UsersResolver } from './resolvers/users.resolver';
-import { PaginationResolver } from '../core/resolvers/pagination.resolver';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { PaginationResolver } from '../core/resolvers/pagination.resolver';
     MatTableModule
   ],
   providers: [
-    UsersResolver,
-    PaginationResolver
+    UsersResolver
   ]
 })
 export class UserModule { }
