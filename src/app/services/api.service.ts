@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserInterface } from '../../../interfaces';
-import { PaginationApiService } from './pagination-api.service';
+import { UserInterface } from '../modules/user/interfaces/user.interface';
+import { PaginationApiService } from '../modules/core/services/pagination-api.service';
 
 @Injectable()
 export class ApiService {

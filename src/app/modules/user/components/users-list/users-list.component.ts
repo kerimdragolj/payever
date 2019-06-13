@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { UserInterface, PaginationInterface } from '../../../../interfaces';
-import { ApiService } from '../../../core/services/api.service';
+import { PaginationInterface } from '../../../core/interfaces/pagination.interface';
+import { UserInterface } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-users-list',
@@ -25,6 +25,12 @@ export class UsersListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentPage = this.activatedRoute.snapshot.queryParams.page - 1;
+    if (!this.currentPage) {
+      this.currentPage = 0;
+      this.fetchDataByPage(this.currentPage);
+    }
+
     this.activatedRoute.data.pipe(map(data => data.users))
       .subscribe((users: UserInterface[]) => {
         this.userList = users;
@@ -33,7 +39,6 @@ export class UsersListComponent implements OnInit {
     this.activatedRoute.data.pipe(map(data => data.paginationInfo))
       .subscribe((paginationInfo: PaginationInterface) => {
         this.pagesCount = paginationInfo.total;
-        this.currentPage = paginationInfo.page - 1;
         this.pageSize = paginationInfo.per_page;
       }).unsubscribe();
   }
@@ -44,6 +49,20 @@ export class UsersListComponent implements OnInit {
   }
 
   userSelected(user: UserInterface): void {
-    this.router.navigate(['./user', user.id]);
+    this.router.navigate(['./users', user.id]);
+  }
+
+  async fetchDataByPage(page) {
+    if (page !== 1) {
+      await this.router.navigate(['./'], { queryParams: { page } });
+    }
+  }
+
+  async fetchPagination() {
+    await this.activatedRoute.data.pipe(map(data => data.paginationInfo))
+      .subscribe((paginationInfo: PaginationInterface) => {
+        this.pagesCount = paginationInfo.total;
+        this.pageSize = paginationInfo.per_page;
+      }).unsubscribe();
   }
 }

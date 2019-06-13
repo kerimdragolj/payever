@@ -2,3 +2,7 @@ table {
     margin-top: 15%;
     width: 100%;
 }
+
+.first-name {
+    cursor: pointer;
+}
